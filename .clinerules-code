@@ -1,0 +1,124 @@
+mode: code
+mode_switching:
+  enabled: true
+  preserve_context: true
+  failure_handling:
+    max_attempts: 3
+    on_failure:
+      switch_to: debug
+      preserve_history: true
+
+real_time_updates:
+  enabled: true
+  update_triggers:
+    project_related:
+      - code_change
+      - implementation_decision
+      - bug_fix
+      - feature_addition
+      - refactoring
+      - task_status_change
+      - task_completion
+    system_related:
+      - dependency_change
+      - performance_optimization
+      - security_fix
+      - configuration_update
+    documentation_related:
+      - code_documentation
+      - api_documentation
+      - implementation_notes
+      - usage_examples
+      - task_progress
+  update_targets:
+    high_priority:
+      - memory-bank/tasks/statusOverview.md
+      - memory-bank/tasks/task-*.md
+    medium_priority:
+      - memory-bank/productContext.md
+      - memory-bank/decisions.md
+    low_priority:
+      - memory-bank/tasks/archive/
+  intent_triggers:
+    architect:
+      - design
+      - architect
+      - structure
+      - plan
+      - organize
+    ask:
+      - explain
+      - help
+      - what
+      - how
+      - why
+      - describe
+    debug:
+      - debug
+      - fix
+      - error
+      - issue
+      - problem
+  task_triggers:
+    - condition: task_started
+  mode_triggers:
+    architect:
+      - condition: needs_design_review
+      - condition: architecture_discussion
+      - condition: task_clarification
+      - action: new_task
+    ask:
+      - condition: needs_explanation
+      - condition: documentation_request
+    debug:
+      - condition: repeated_failure
+      - condition: error_pattern_detected
+    code:
+      - condition: task_started
+
+instructions:
+  task_chaining:
+    - "**IMPORTANT:** After completing a task and updating the relevant task files (including `statusOverview.md`), you MUST check the `statusOverview.md` file. If any tasks remain in TODO status, you MUST IMMEDIATELY start the next task (considering dependencies) in a new window using the `new_task` tool. Do this *BEFORE* reporting the completion of the current task."
+    - "**Example:** If you complete Task A and `statusOverview.md` shows Task B as TODO, you must use `new_task` to start Task B *before* reporting that Task A is complete."
+    - "After starting a task from memory-bank in new window using new_task make sure to carry out that task in that window only and only start new task in new window using new_task for the next task."
+    - "**Note:** Failure to follow this procedure will result in missed tasks and incorrect workflow."
+  general:
+    - "When entering Code mode, check the 'resuming_task' flag in the Memory Bank (memory-bank/resuming_task.md). If it's false (or the file doesn't exist) AND there is new user input, create a new task using the new_task tool. If 'resuming_task' is true, continue the existing task, and set 'resuming_task' to false."
+    - "Always create a new directory for the project and store all project-related files in that directory. **HIGFLY IMPORTANT**"
+    - "Before switching to Debug mode, set the 'resuming_task' flag in the Memory Bank to 'true'."
+    - "After returning from Debug mode, set the 'resuming_task' flag in the Memory Bank to 'false'."
+    - "Understand and remember the difference between starting a new task in new window using new_task and the tasks created in memory-bank, they are both different."
+  memory_bank:
+    - "Status Prefix: Begin EVERY response with either '[MEMORY BANK: ACTIVE]' or '[MEMORY BANK: INACTIVE]'"
+    - "Task Management:"
+    - "  Read tasks from memory-bank/tasks/"
+    - "  Update task status in tasks/statusOverview.md"
+    - "  Document implementation details in task files"
+    - "  Track dependencies and blockers"
+    - "Memory Bank Structure:"
+    - "  memory-bank/"
+    - "  ├── tasks/"
+    - "  │   ├── statusOverview.md (active tasks status)"
+    - "  │   ├── task-[id].md (task details)"
+    - "  │   └── archive/ (completed tasks)"
+    - "  ├── productContext.md (project overview)"
+    - "  └── decisions.md (architectural decisions)"
+    - "File Roles:"
+    - "  - tasks/statusOverview.md: Central task tracking"
+    - "  - task-*.md: Implementation details"
+    - "  - productContext.md: Project standards"
+    - "  - decisions.md: High-level decisions"
+    - "File Creation Authority:"
+    - "  - Can create and modify all Memory Bank files"
+    - "  - Focus on keeping documentation current with code"
+    - "  - Update task files with implementation details"
+    - "Mode Collaboration:"
+    - "  - Implement tasks created by Architect mode"
+    - "  - Keep documentation current for Ask mode"
+    - "  - Switch to Debug mode after 3 failed attempts"
+    - "  - Request architect review when needed"
+  umb:
+    - "Standard Memory Bank update procedures apply"
+  tools:
+    - "You also have access to new_task"
+    - "You can create new tasks as needed for project progression."
