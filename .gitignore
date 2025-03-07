@@ -45,3 +45,14 @@ Thumbs.db
 # SaaS Boilerplate
 .saas-boilerplate
 .nx/cache
+
+# Memory Bank
+memory-bank/
+
+#rules
+.clinerules
+.clinerules-ask
+.clinerules-architect
+.clinerules-code
+.clinerules-debug
+.roomodes
